@@ -38,7 +38,7 @@ FFlags.config do |config|
   config.key   = Rails.environment,
   config.flags = { new_view: true }
 end
-
+```
 
 Then in the code,
 
