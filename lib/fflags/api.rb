@@ -1,10 +1,12 @@
-require './lib/fflags/redis_client'
-
 module FFlags
   # Api Class
   class Api
+    def initialize
+      load_flags
+    end
+
     def flags
-      FFlags.configuration.flags
+      client.all(key)
     end
 
     def enabled?(flag_name)
@@ -16,9 +18,7 @@ module FFlags
     end
 
     def get_flag(flag_name)
-      value = client.get(key, flag_name)
-      value = flags.dig(flag_name.to_sym) if value.nil?
-      truthy?(value)
+      truthy?(client.get(key, flag_name))
     end
 
     def toggle_flag(flag_name)
@@ -26,7 +26,14 @@ module FFlags
     end
 
     def reset
-      client.reset(FFlags.configuration.key)
+      client.reset(key)
+      load_flags
+    end
+
+    def load_flags
+      default_flags.each do |flag, bool|
+        set_flag(flag, bool)
+      end
     end
 
     private
@@ -41,6 +48,10 @@ module FFlags
 
     def client
       RedisClient
+    end
+
+    def default_flags
+      FFlags.configuration.flags
     end
   end
 end

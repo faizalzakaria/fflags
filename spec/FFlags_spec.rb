@@ -1,5 +1,7 @@
 RSpec.describe FFlags do
-  before { FFlags.reset }
+  before do
+    FFlags.config { |config| config.flags = {} }
+  end
 
   describe '#version' do
     it 'has a version number' do
@@ -23,40 +25,42 @@ RSpec.describe FFlags do
         config.flags = { test: true }
       end
 
-      expect(FFlags.flags).to eq(test: true)
+      expect(FFlags.flags).to eq({'test' => 'true'})
     end
   end
 
   describe '#enabled?' do
     it 'returns correct boolean' do
-      FFlags.configuration.flags = { test: true }
+      FFlags.set(:test, true)
       expect(FFlags.enabled?('test')).to be true
 
-      FFlags.configuration.flags = { test: false }
+      FFlags.set(:test, false)
       expect(FFlags.enabled?('test')).to be false
     end
   end
 
-  describe '#set_flag' do
+  describe '#set' do
     it 'sets the flag' do
       FFlags.configuration.flags = { test: true }
-      expect(FFlags.set_flag('test', false)).to be true
-      expect(FFlags.get_flag('test')).to be false
+      expect(FFlags.set('test', false)).to be true
+      expect(FFlags.get('test')).to be false
     end
   end
 
-  describe '#get_flag' do
+  describe '#get' do
+    before { FFlags.config { |config| config.flags = { test: true } } }
+
     it 'gets the flag' do
-      FFlags.configuration.flags = { test: true }
-      expect(FFlags.get_flag('test')).to be true
+      expect(FFlags.get('test')).to be true
     end
   end
 
   describe '#toggle_flag' do
+    before { FFlags.config { |config| config.flags = { test: true } } }
+
     it 'toggles the flag' do
-      FFlags.configuration.flags = { test: true }
-      expect(FFlags.toggle_flag('test')).to be true
-      expect(FFlags.get_flag('test')).to be false
+      expect(FFlags.toggle('test')).to be true
+      expect(FFlags.get('test')).to be false
     end
   end
 end

@@ -1,5 +1,7 @@
+require 'redis'
 require 'fflags/version'
 require 'fflags/configuration'
+require 'fflags/redis_client'
 require 'fflags/api'
 
 # FFlags module
@@ -8,6 +10,7 @@ module FFlags
 
   def config
     yield configuration
+    api.reset
   end
 
   def flags
@@ -18,15 +21,15 @@ module FFlags
     api.enabled?(flag_name)
   end
 
-  def set_flag(flag_name, bool)
+  def set(flag_name, bool)
     api.set_flag(flag_name, bool)
   end
 
-  def get_flag(flag_name)
+  def get(flag_name)
     api.get_flag(flag_name)
   end
 
-  def toggle_flag(flag_name)
+  def toggle(flag_name)
     api.toggle_flag(flag_name)
   end
 
