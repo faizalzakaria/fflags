@@ -37,6 +37,22 @@ module FFlags
     api.reset
   end
 
+  def method_missing(method_name, *args)
+    flag_name = method_name[0..-2]
+
+    if !method_name.to_s.end_with?('?') ||
+       !flags.include?(flag_name)
+      return super
+    end
+
+    api.get_flag(flag_name)
+  end
+
+  def respond_to_missing?(method_name, include_private = false)
+    flag_name = method_name[0..-2]
+    method_name.to_s.end_with?('?') && flags.include?(flag_name) || super
+  end
+
   def api
     @api ||= Api.new
   end

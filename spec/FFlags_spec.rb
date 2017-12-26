@@ -25,7 +25,7 @@ RSpec.describe FFlags do
         config.flags = { test: true }
       end
 
-      expect(FFlags.flags).to eq({'test' => 'true'})
+      expect(FFlags.flags).to eq('test' => 'true')
     end
   end
 
@@ -62,5 +62,20 @@ RSpec.describe FFlags do
       expect(FFlags.toggle('test')).to be true
       expect(FFlags.get('test')).to be false
     end
+  end
+
+  describe '#method_missing' do
+    before { FFlags.config { |config| config.flags = { test: true } } }
+
+    it { expect { FFlags.toto? }.to raise_exception(NoMethodError) }
+    it { expect { FFlags.test }.to raise_exception(NoMethodError) }
+    it { expect(FFlags.test?).to be true }
+  end
+
+  describe '#respond_to_missing?' do
+    before { FFlags.config { |config| config.flags = { test: true } } }
+    it { expect(FFlags.respond_to?(:toto)).to be false }
+    it { expect(FFlags.respond_to?(:test)).to be false }
+    it { expect(FFlags.respond_to?(:test?)).to be true }
   end
 end

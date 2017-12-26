@@ -38,6 +38,10 @@ module FFlags
 
     private
 
+    def question_mark_method?(method_name)
+      method_name[-1] == '?'
+    end
+
     def truthy?(value)
       value == true || value == 'true'
     end
