@@ -1,5 +1,9 @@
 # FFlags
 
+Feature flags that can be overwritten on the fly. It could be per instance or per environment. Depending on how you set your key, either dynamically per instance or constant per environment.
+
+It uses Redis to store the information, and the size should be very small, depending on how many flags you need to track.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -18,25 +22,37 @@ Or install it yourself as:
 
 ## Usage
 
-```ruby
-require 'socket'
+- If you want the flags to be unique per instance, you can use hostname of the instance as such:
 
+```ruby
 FFlags.config do |config|
   config.key   = Socket.gethostname
   config.flags = { new_view: true }
 end
 ```
 
+- If you want the flags to be unique per environment, you can use the key as such:
+
+```ruby
+FFlags.config do |config|
+  config.key   = Rails.environment,
+  config.flags = { new_view: true }
+end
+
+
 Then in the code,
 
 ```ruby
 # Verify if the flag is enabled
 FFlags.enabled?(:new_view)
+# or
+FFlags.new_view?(:new_view)
+
 
 # Overwrite flag
 FFlags.toggle(:new_view)
 # or
-FFlags.set_flag(:new_view, false)
+FFlags.set(:new_view, false)
 
 # To reset, and get back to the default settings.
 FFlags.reset
