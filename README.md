@@ -44,9 +44,13 @@ Then in the code,
 
 ```ruby
 # Verify if the flag is enabled
-FFlags.enabled?(:new_view)
+if FFlags.enabled?(:new_view)
+  # Do something
+end
 # or
-FFlags.new_view?(:new_view)
+if FFlags.new_view?
+  # Do something
+end
 
 
 # Overwrite flag
