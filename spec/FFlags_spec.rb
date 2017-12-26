@@ -43,7 +43,7 @@ RSpec.describe FFlags do
     it 'sets the flag' do
       FFlags.configuration.flags = { test: true }
       expect(FFlags.set('test', false)).to be true
-      expect(FFlags.get('test')).to be false
+      expect(FFlags.enabled?('test')).to be false
     end
   end
 
@@ -51,7 +51,7 @@ RSpec.describe FFlags do
     before { FFlags.config { |config| config.flags = { test: true } } }
 
     it 'gets the flag' do
-      expect(FFlags.get('test')).to be true
+      expect(FFlags.get('test')).to eq 'true'
     end
   end
 
@@ -60,7 +60,7 @@ RSpec.describe FFlags do
 
     it 'toggles the flag' do
       expect(FFlags.toggle('test')).to be true
-      expect(FFlags.get('test')).to be false
+      expect(FFlags.enabled?('test')).to be false
     end
   end
 

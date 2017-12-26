@@ -45,7 +45,7 @@ module FFlags
       return super
     end
 
-    api.get_flag(flag_name)
+    api.enabled?(flag_name)
   end
 
   def respond_to_missing?(method_name, include_private = false)

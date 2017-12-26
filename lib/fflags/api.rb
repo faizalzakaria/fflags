@@ -10,7 +10,7 @@ module FFlags
     end
 
     def enabled?(flag_name)
-      get_flag(flag_name) == true
+      truthy?(get_flag(flag_name))
     end
 
     def set_flag(flag_name, bool)
@@ -18,7 +18,7 @@ module FFlags
     end
 
     def get_flag(flag_name)
-      truthy?(client.get(key, flag_name))
+      client.get(key, flag_name)
     end
 
     def toggle_flag(flag_name)
@@ -30,8 +30,13 @@ module FFlags
       load_flags
     end
 
+    def flag_exist?(flag_name)
+      !get_flag(flag_name).nil?
+    end
+
     def load_flags
       default_flags.each do |flag, bool|
+        next if flag_exist?(flag)
         set_flag(flag, bool)
       end
     end
