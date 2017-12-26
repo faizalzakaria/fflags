@@ -1,9 +1,9 @@
-require "FFlags/version"
-require "FFlags/configuration"
-require "FFlags/api"
+require 'fflags/version'
+require 'fflags/configuration'
+require 'fflags/api'
 
 module FFlags
-  extend self
+  module_function
 
   def config
     yield configuration

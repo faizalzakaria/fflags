@@ -3,7 +3,6 @@ require 'redis'
 module FFlags
   class RedisClient
     class << self
-
       def set(key, field, value)
         client.hmset(key, field, value) == 'OK'
       end

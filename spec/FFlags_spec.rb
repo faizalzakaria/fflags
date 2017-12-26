@@ -2,7 +2,7 @@ RSpec.describe FFlags do
   before { FFlags.reset }
 
   describe '#version' do
-    it "has a version number" do
+    it 'has a version number' do
       expect(FFlags::VERSION).not_to be nil
     end
   end
@@ -13,7 +13,7 @@ RSpec.describe FFlags do
         config.flags = { test: true }
       end
 
-      expect(FFlags.configuration.flags).to eq({ test: true })
+      expect(FFlags.configuration.flags).to eq(test: true)
     end
   end
 
@@ -23,7 +23,7 @@ RSpec.describe FFlags do
         config.flags = { test: true }
       end
 
-      expect(FFlags.flags).to eq({ test: true })
+      expect(FFlags.flags).to eq(test: true)
     end
   end
 
