@@ -19,8 +19,24 @@ And then execute:
 Or install it yourself as:
 
     $ gem install fflags
+    
+    
+## How to Configure FFlags
 
-## Usage
+To configure the FFlags, 
+
+```ruby
+FFlags.config { |config .. }
+```
+
+#### Supported Configs
+
+- key       (Key to store the flags, in Redis, it would look something like, { key: <flags as a Hash> })
+- flags     (Flags to be tracked as a Hash, and value as a boolean)
+- redis_url (Redis url, where the flags will be stored)
+- debug     (For debugging, NOT BEING USED RIGHT NOW)
+
+## Example of Usage
 
 - If you want the flags to be unique per instance, you can use hostname of the instance as such:
 
