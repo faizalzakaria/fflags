@@ -31,12 +31,12 @@ FFlags.config { |config .. }
 
 #### Supported Configs
 
-| Config    | Description       |
-|-----------|-------------------|
-| key       | Key to store the flags, in Redis, it would look something like, `{ key: <flags as a Hash> }` |
-| flags     | Flags to be tracked as a Hash, and value as a boolean) |
-| redis_url | Redis url, where the flags will be stored |
-| debug     | For debugging, NOT BEING USED RIGHT NOW |
+| Config    | Description       | Default |
+|-----------|-------------------|---------|
+| key       | Key to store the flags, in Redis, it would look something like, `{ key: <flags as a Hash> }` | code3.io |
+| flags     | Flags to be tracked as a Hash, and value as a boolean) | {} |
+| redis_url | Redis url, where the flags will be stored | redis://127.0.0.1:6379 |
+| debug     | For debugging, NOT BEING USED RIGHT NOW | false |
 
 ## Example of Usage
 
