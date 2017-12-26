@@ -2,6 +2,7 @@ require 'fflags/version'
 require 'fflags/configuration'
 require 'fflags/api'
 
+# FFlags module
 module FFlags
   module_function
 

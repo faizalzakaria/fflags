@@ -1,4 +1,5 @@
 module FFlags
+  # Configuration Class
   class Configuration
     attr_accessor :key, :redis_url, :debug, :flags
 

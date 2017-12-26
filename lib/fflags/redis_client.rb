@@ -1,6 +1,7 @@
 require 'redis'
 
 module FFlags
+  # Redis Client
   class RedisClient
     class << self
       def set(key, field, value)

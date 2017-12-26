@@ -1,10 +1,10 @@
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'FFlags/version'
+require 'fflags/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'FFlags'
+  spec.name          = 'fflags'
   spec.version       = FFlags::VERSION
   spec.authors       = ['Faizal Zakaria']
   spec.email         = ['fai@code3.io']

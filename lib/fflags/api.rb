@@ -1,6 +1,7 @@
 require './lib/fflags/redis_client'
 
 module FFlags
+  # Api Class
   class Api
     def flags
       FFlags.configuration.flags
