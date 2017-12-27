@@ -10,7 +10,7 @@ module FFlags
 
   def config
     yield configuration
-    api.reset
+    api.load_flags
   end
 
   def flags

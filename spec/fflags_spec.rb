@@ -1,6 +1,7 @@
 RSpec.describe FFlags do
   before do
     FFlags.config { |config| config.flags = {} }
+    FFlags.reset
   end
 
   describe '#version' do
@@ -11,11 +12,14 @@ RSpec.describe FFlags do
 
   describe '#config' do
     it 'sets config values' do
-      FFlags.config do |config|
-        config.flags = { test: true }
-      end
+      FFlags.config { |config| config.flags = { test: true } }
+      expect(FFlags.flags).to eq('test' => 'true')
 
-      expect(FFlags.configuration.flags).to eq(test: true)
+      FFlags.set(:test, false)
+      expect(FFlags.flags).to eq('test' => 'false')
+      FFlags.config { |config| config.flags = { test: true } }
+
+      expect(FFlags.flags).to eq('test' => 'false')
     end
   end
 
