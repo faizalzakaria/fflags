@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Faizal Zakaria']
   spec.email         = ['fai@code3.io']
 
-  spec.summary       = 'Feature flags that can be override per instance'
-  spec.description   = 'Feature flags that can be override per instance'
-  spec.homepage      = 'https://faizalzakaria.github.com'
+  spec.summary       = 'Feature flags that can be override on the fly.'
+  spec.description   = 'Feature flags that can be override on the fly.'
+  spec.homepage      = 'https://github.com/faizalzakaria/fflags'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
