@@ -49,9 +49,15 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-      # run tests!
+      # run rubocop!
       - run:
-          name: run tests
+          name: rubocop
+          command: |
+            bundle exec rubocop -D
+
+      # run rspec!
+      - run:
+          name: rspec
           command: |
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
