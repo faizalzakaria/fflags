@@ -1,4 +1,5 @@
 [![CircleCI](https://circleci.com/gh/faizalzakaria/fflags/tree/master.svg?style=svg)](https://circleci.com/gh/faizalzakaria/fflags/tree/master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/2c8af5d2a0560570a5b7/maintainability)](https://codeclimate.com/github/faizalzakaria/fflags/maintainability)
 
 # FFlags
 
