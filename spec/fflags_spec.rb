@@ -72,10 +72,22 @@ RSpec.describe FFlags do
     it { expect(FFlags.test?).to be true }
   end
 
-  describe '#respond_to_missing?' do
+  describe '#respond_to?' do
     before { FFlags.config { |config| config.flags = { test: true } } }
     it { expect(FFlags.respond_to?(:toto)).to be false }
     it { expect(FFlags.respond_to?(:test)).to be false }
     it { expect(FFlags.respond_to?(:test?)).to be true }
+  end
+
+  describe '#reset' do
+    before { FFlags.config { |config| config.flags = { test: true } } }
+
+    it 'resets the flags to default values' do
+      expect(FFlags.flags).to eq('test' => 'true')
+      FFlags.toggle(:test)
+      expect(FFlags.flags).to eq('test' => 'false')
+      FFlags.reset
+      expect(FFlags.flags).to eq('test' => 'true')
+    end
   end
 end
