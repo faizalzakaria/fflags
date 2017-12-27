@@ -26,6 +26,19 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+
+      - run:
+          name: install redis
+          command: |
+            pushd /tmp
+            wget http://download.redis.io/releases/redis-$REDIS_VERSION.tar.gz
+            tar xzf redis-$REDIS_VERSION.tar.gz
+            cd redis-$REDIS_VERSION && make
+            src/redis-server --daemonize yes
+            popd
+          environment:
+            REDIS_VERSION: 3.2.10
+
       - run:
           name: install dependencies
           command: |
