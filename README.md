@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/faizalzakaria/fflags/tree/master.svg?style=svg)](https://circleci.com/gh/faizalzakaria/fflags/tree/master)
+
 # FFlags
 
 Feature flags that can be overwritten on the fly. It could be per instance or per environment. Depending on how you set your key, either dynamically per instance or constant per environment.
