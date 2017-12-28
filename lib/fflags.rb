@@ -13,7 +13,7 @@ module FFlags
     api.load_flags
   end
 
-  def flags
+  def all
     api.flags
   end
 
@@ -41,7 +41,7 @@ module FFlags
     flag_name = method_name[0..-2]
 
     if !method_name.to_s.end_with?('?') ||
-       !flags.include?(flag_name)
+       !all.include?(flag_name)
       return super
     end
 
@@ -50,7 +50,7 @@ module FFlags
 
   def respond_to_missing?(method_name, include_private = false)
     flag_name = method_name[0..-2]
-    method_name.to_s.end_with?('?') && flags.include?(flag_name) || super
+    method_name.to_s.end_with?('?') && all.include?(flag_name) || super
   end
 
   def api

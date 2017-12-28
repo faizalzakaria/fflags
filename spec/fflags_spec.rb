@@ -13,23 +13,23 @@ RSpec.describe FFlags do
   describe '#config' do
     it 'sets config values' do
       FFlags.config { |config| config.flags = { test: true } }
-      expect(FFlags.flags).to eq('test' => 'true')
+      expect(FFlags.all).to eq('test' => 'true')
 
       FFlags.set(:test, false)
-      expect(FFlags.flags).to eq('test' => 'false')
+      expect(FFlags.all).to eq('test' => 'false')
       FFlags.config { |config| config.flags = { test: true } }
 
-      expect(FFlags.flags).to eq('test' => 'false')
+      expect(FFlags.all).to eq('test' => 'false')
     end
   end
 
-  describe '#flags' do
+  describe '#all' do
     it 'sets config values' do
       FFlags.config do |config|
         config.flags = { test: true }
       end
 
-      expect(FFlags.flags).to eq('test' => 'true')
+      expect(FFlags.all).to eq('test' => 'true')
     end
   end
 
@@ -87,11 +87,11 @@ RSpec.describe FFlags do
     before { FFlags.config { |config| config.flags = { test: true } } }
 
     it 'resets the flags to default values' do
-      expect(FFlags.flags).to eq('test' => 'true')
+      expect(FFlags.all).to eq('test' => 'true')
       FFlags.toggle(:test)
-      expect(FFlags.flags).to eq('test' => 'false')
+      expect(FFlags.all).to eq('test' => 'false')
       FFlags.reset
-      expect(FFlags.flags).to eq('test' => 'true')
+      expect(FFlags.all).to eq('test' => 'true')
     end
   end
 end

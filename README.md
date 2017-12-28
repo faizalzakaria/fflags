@@ -81,6 +81,9 @@ FFlags.set(:new_view, false)
 
 # To reset, and get back to the default settings.
 FFlags.reset
+
+# To read all flags
+FFlags.all
 ```
 
 ## Development
