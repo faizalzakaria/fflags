@@ -26,6 +26,12 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      # Code Climate test reporter
+      - run:
+          name: install codeclimate test reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
 
       - run:
           name: install redis
@@ -61,11 +67,12 @@ jobs:
           command: |
             mkdir /tmp/test-results
             TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-            
+            ./cc-test-reporter before-build
             bundle exec rspec --format progress \
                             --out /tmp/test-results/rspec.xml \
                             --format progress \
                             "${TEST_FILES}"
+            ./cc-test-reporter after-build --exit-code $?
 
       # collect reports
       - store_test_results:
