@@ -14,7 +14,8 @@ module FFlags
     end
 
     def set_flag(flag_name, bool)
-      client.set(key, flag_name, bool)
+      supported_flag?(flag_name) &&
+        client.set(key, flag_name, bool)
     end
 
     def get_flag(flag_name)
@@ -30,18 +31,23 @@ module FFlags
       load_flags
     end
 
-    def flag_exist?(flag_name)
-      !get_flag(flag_name).nil?
-    end
-
     def load_flags
       default_flags.each do |flag, bool|
-        next if flag_exist?(flag)
+        next if flag_is_not_nil?(flag)
         set_flag(flag, bool)
       end
     end
 
     private
+
+    def supported_flag?(flag_name)
+      default_flags.include?(flag_name.to_sym) ||
+        default_flags.include?(flag_name.to_s)
+    end
+
+    def flag_is_not_nil?(flag_name)
+      !get_flag(flag_name).nil?
+    end
 
     def truthy?(value)
       value == true || value == 'true'

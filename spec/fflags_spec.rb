@@ -34,6 +34,7 @@ RSpec.describe FFlags do
   end
 
   describe '#enabled?' do
+    before { FFlags.config { |config| config.flags = { test: true } } }
     it 'returns correct boolean' do
       FFlags.set(:test, true)
       expect(FFlags.enabled?('test')).to be true
@@ -44,10 +45,27 @@ RSpec.describe FFlags do
   end
 
   describe '#set' do
-    it 'sets the flag' do
-      FFlags.configuration.flags = { test: true }
-      expect(FFlags.set('test', false)).to be true
-      expect(FFlags.enabled?('test')).to be false
+    context 'with nonexistance flag' do
+      it 'returns false' do
+        expect(FFlags.set('fai', true)).to be false
+      end
+    end
+
+    context 'without a block' do
+      before { FFlags.config { |config| config.flags = { test: true } } }
+      it 'sets the flag' do
+        expect(FFlags.test?).to be true
+        expect(FFlags.set('test', false)).to be true
+        expect(FFlags.test?).to be false
+      end
+    end
+
+    context 'with a block' do
+      before { FFlags.config { |config| config.flags = { test: true } } }
+      it 'executes the block within the value of the flag' do
+        expect(FFlags.set('test', false) { puts FFlags.get('test') }).to be true
+        expect(FFlags.enabled?('test')).to be true
+      end
     end
   end
 
@@ -78,6 +96,7 @@ RSpec.describe FFlags do
 
   describe '#respond_to?' do
     before { FFlags.config { |config| config.flags = { test: true } } }
+
     it { expect(FFlags.respond_to?(:toto)).to be false }
     it { expect(FFlags.respond_to?(:test)).to be false }
     it { expect(FFlags.respond_to?(:test?)).to be true }
