@@ -23,7 +23,7 @@ module FFlags
     end
 
     def toggle_flag(flag_name)
-      set_flag(flag_name, !get_flag(flag_name))
+      set_flag(flag_name, !enabled?(flag_name))
     end
 
     def reset

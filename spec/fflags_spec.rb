@@ -83,6 +83,9 @@ RSpec.describe FFlags do
     it 'toggles the flag' do
       expect(FFlags.toggle('test')).to be true
       expect(FFlags.enabled?('test')).to be false
+
+      expect(FFlags.toggle('test')).to be true
+      expect(FFlags.enabled?('test')).to be true
     end
   end
 

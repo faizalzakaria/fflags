@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fflags (0.4.1)
+    fflags (0.4.2)
       redis (>= 3.0.0)
 
 GEM
