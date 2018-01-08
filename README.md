@@ -87,6 +87,82 @@ FFlags.reset
 FFlags.all
 ```
 
+## To use in Rails
+
+- Add the gem in Gemfile.
+
+```ruby
+# Gemfile.rb
+
+gem 'fflags'
+```
+
+- Add the initializer.
+
+```ruby
+# config/initializer/fflags.rb
+
+FFlags.config do |config|
+  config.flags = { new_feature: true }
+  ..
+end
+```
+
+- Use the feature anywhere in your code.
+
+```ruby
+if FFlags.new_feature?
+  puts 'Enabled'
+end
+```
+
+## Template
+
+Sometimes you need to set a set of flags in 1 go. Ex. Staging to have an exact same flag configuration as in Production.
+You can use template for this.
+
+Ex.
+
+In the config,
+
+```ruby
+FFlags.config do |config|
+  config.flags = { feature1: true, feature2: true, feature3: true }
+  config.templates = { production: { feature1: false, feature2: false, feature3: false } }
+end
+```
+
+Then in your code,
+
+```ruby
+FFlags.set_as_template(:production)
+
+# To view all the templates
+FFlags.templates
+```
+
+## Testing
+
+Sometimes you need to test flag with different value in your test. You can set block for that.
+
+Ex. in `rspec`
+
+```ruby
+describe "#eat_tofu" do
+  context 'new feature enabled' do
+    FFlags.set(new_feature: true) do
+      # Do something
+    end
+  end
+  
+  context 'new feature disabled' do
+    FFlags.set(new_feature: false) do
+      # Do something
+    end
+  end
+end
+```
+
 ## Development
 
 After checking out the repo, run `bundle install` to install dependencies. Then, run `rspec` to run the tests.
