@@ -5,3 +5,6 @@ Metrics/ModuleLength:
 Metrics/BlockLength:
   Exclude:
     - "**/*_spec.rb"
+
+Naming/AccessorMethodName:
+  Enabled: false
