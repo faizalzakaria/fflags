@@ -1,7 +1,6 @@
 RSpec.describe FFlags do
   before do
-    FFlags.config { |config| config.flags = {} }
-    FFlags.reset
+    FFlags.reset_config
   end
 
   describe '#version' do
@@ -33,6 +32,55 @@ RSpec.describe FFlags do
     end
   end
 
+  describe '#templates' do
+    context 'no templates set' do
+      it 'returns empty templates' do
+        expect(FFlags.templates).to eq({})
+      end
+    end
+
+    context '2 templates is set' do
+      let(:templates) { { production: { test: true } } }
+      before do
+        FFlags.config { |config| config.templates = templates }
+      end
+
+      it 'returns all templates' do
+        expect(FFlags.templates).to eq(templates)
+      end
+    end
+  end
+
+  describe '#set_as_template' do
+    let(:templates) { { production: { read: false } } }
+    before do
+      FFlags.config do |config|
+        config.flags     = { read: true }
+        config.templates = templates
+      end
+    end
+
+    context 'template exists' do
+      it 'sets template correctly' do
+        expect(FFlags.read?).to be true
+        expect(FFlags.set_as_template(:production)).to be true
+        expect(FFlags.read?).to be false
+      end
+    end
+
+    context 'template does not exists' do
+      it 'doesn set as template' do
+        expect(FFlags.set_as_template(:experimental)).to be false
+      end
+    end
+
+    context 'template has wrong key' do
+      let(:templates) { { production: { new_feature: true } } }
+
+      it { expect(FFlags.set_as_template(:production)).to be false }
+    end
+  end
+
   describe '#enabled?' do
     before { FFlags.config { |config| config.flags = { test: true } } }
     it 'returns correct boolean' do
@@ -57,6 +105,8 @@ RSpec.describe FFlags do
         expect(FFlags.test?).to be true
         expect(FFlags.set('test', false)).to be true
         expect(FFlags.test?).to be false
+        expect(FFlags.set(:test, true)).to be true
+        expect(FFlags.test?).to be true
       end
     end
 

@@ -20,12 +20,47 @@ module FFlags
     api.load_flags
   end
 
+  # Reset the whole config to the default values
+  #
+  # Ex.
+  #   FFlags.reset_config
+  def reset_config
+    @configuration = nil
+    reset
+  end
+
   # Returns all supported flags.
   #
   # Ex.
   #    FFlags.all
   def all
     api.flags
+  end
+
+  # Returns all templates.
+  #
+  # Ex.
+  #    FFlags.templates
+  def templates
+    configuration.templates
+  end
+
+  # Sets as given template.
+  # It will returns false if the template doesn't exists
+  #
+  # Ex.
+  #    FFlags.set_as_template(:template_name)
+  def set_as_template(template)
+    template = templates[template.to_sym] || templates[template.to_s]
+
+    return false unless template
+
+    status = true
+    template.each_pair do |key, value|
+      status &&= set(key, value)
+    end
+
+    status
   end
 
   # Check if the flag is enabled,
