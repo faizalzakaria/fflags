@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/3461316/55052025-69ae7900-5092-11e9-8cb2-bccfb540fcd1.png">
+</p>
+
+<br />
+
 [![CircleCI](https://circleci.com/gh/faizalzakaria/fflags/tree/master.svg?style=svg)](https://circleci.com/gh/faizalzakaria/fflags/tree/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2c8af5d2a0560570a5b7/maintainability)](https://codeclimate.com/github/faizalzakaria/fflags/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2c8af5d2a0560570a5b7/test_coverage)](https://codeclimate.com/github/faizalzakaria/fflags/test_coverage)
