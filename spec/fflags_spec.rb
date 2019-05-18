@@ -142,7 +142,6 @@ RSpec.describe FFlags do
   describe '#method_missing' do
     before { FFlags.config { |config| config.flags = { test: true } } }
 
-    it { expect { FFlags.toto? }.to raise_exception(NoMethodError) }
     it { expect { FFlags.test }.to raise_exception(NoMethodError) }
     it { expect(FFlags.test?).to be true }
   end
