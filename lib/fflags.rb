@@ -123,7 +123,7 @@ module FFlags
   def method_missing(method_name, *args)
     flag_name = method_name[0..-2]
 
-    return super if !method_name.to_s.end_with?('?')
+    return super unless method_name.to_s.end_with?('?')
 
     api.enabled?(flag_name)
   end
