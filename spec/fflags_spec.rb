@@ -22,6 +22,14 @@ RSpec.describe FFlags do
     end
   end
 
+  describe '#reset_api' do
+    it 'resets the api' do
+      FFlags.reset_api
+
+      expect(FFlags.instance_variable_get(:@api)).to be_nil
+    end
+  end
+
   describe '#all' do
     it 'sets config values' do
       FFlags.config do |config|

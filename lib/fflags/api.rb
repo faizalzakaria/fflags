@@ -60,7 +60,7 @@ module FFlags
     end
 
     def client
-      RedisClient
+      @client ||= RedisClient.new
     end
 
     def default_flags

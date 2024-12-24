@@ -17,7 +17,12 @@ module FFlags
   #   end
   def config
     yield configuration
+    reset_api
     api.load_flags
+  end
+
+  def reset_api
+    @api = nil
   end
 
   # Reset the whole config to the default values
