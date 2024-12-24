@@ -23,7 +23,12 @@ module FFlags
     private
 
     def client
-      @client ||= Redis.new(url: FFlags.configuration.redis_url)
+      if FFlags.configuration.redis_url
+        # Legacy support
+        @client ||= Redis.new(url: FFlags.configuration.redis_url)
+      else
+        @client ||= Redis.new(FFlags.configuration.redis_options)
+      end
     end
   end
 end
