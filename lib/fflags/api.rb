@@ -14,8 +14,10 @@ module FFlags
     end
 
     def set_flag(flag_name, bool)
-      supported_flag?(flag_name) &&
-        client.set(key, flag_name, bool)
+      return false unless supported_flag?(flag_name)
+
+      client.set(key, flag_name, bool)
+      true
     end
 
     def get_flag(flag_name)

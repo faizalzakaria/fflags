@@ -2,8 +2,11 @@ module FFlags
   # Redis Client
   class RedisClient
     class << self
+      # hset doesn't return explicitly true or false
       def set(key, field, value)
-        client.hmset(key, field, value) == 'OK'
+        return false if value.nil?
+
+        client.hset(key, field, value.to_s)
       end
 
       def all(key)
